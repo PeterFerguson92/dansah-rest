@@ -8,7 +8,6 @@ class MonthlyPowerLivingAdmin(admin.ModelAdmin):
     fields = ("title",
               "short_description",
               "full_description",
-              "action_text",
               "cover_image_path")
     list_display = ("title",
                     "short_description",

@@ -9,8 +9,9 @@ class Event(models.Model):
     title = models.CharField("Title", max_length=255)
     description_1 = models.TextField("Description 1", max_length=1024)
     description_2 = models.TextField("Description 2", max_length=1024)
-    date_detail_1 = models.CharField("Date details", max_length=255)
-    date_detail_2 = models.CharField("Date details 2", max_length=255)
+    date = models.CharField("Date details", max_length=255)
+    time = models.CharField("Time details ", max_length=255)
+    location = models.CharField("Location details ", max_length=255)
     cover_image_path = models.ImageField(
         "Cover image", upload_to=home_events_upload_image_path, null=True, blank=True
     )

@@ -74,3 +74,9 @@ class LeadershipInstituteSerializer(serializers.ModelSerializer):
     class Meta:
         model = LeadershipInstitute
         fields = "__all__"
+
+
+class LeadershipInstituteShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LeadershipInstitute
+        fields = ("alias", "title", "short_description")

@@ -5,15 +5,10 @@ from .models import HomeActivity
 
 @admin.register(HomeActivity)
 class HomeActivitiesAdmin(admin.ModelAdmin):
-    search_fields = ("title__startswith",)
-    fields = (
-        "title",
-        "description",
-        "background_image_path",
-    )
+    fields = ("leadership_institute", "prayer_city", "power_living", "prayer_connect")
 
     list_display = (
-        "title",
+        "id",
         "created_at",
     )
-    list_filter = ("title",)
+    list_filter = ("leadership_institute",)

@@ -11,9 +11,10 @@ class ProfilesView(generics.GenericAPIView):
 
     def get(self, request):
         profiles = Profile.objects.all()
+        print(profiles)
         if not profiles:
             return Response(
-                {"status": "No profile information available"},
+                {"status": "No profile infdfedfformation available"},
                 status=status.HTTP_404_NOT_FOUND,
             )
         serializer = self.serializer_class(profiles, many=True)

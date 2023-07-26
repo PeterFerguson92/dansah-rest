@@ -116,7 +116,6 @@ class LeadershipInstituteAdmin(admin.ModelAdmin):
         "title",
         "short_description",
         "full_description",
-        "action_text",
         "cover_image_path",
         "categories",
     )
