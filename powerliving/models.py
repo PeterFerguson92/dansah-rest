@@ -10,8 +10,16 @@ class MonthlyPowerLiving(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField("Monthly Power Living tile", max_length=255)
     description = models.TextField("Description", max_length=1024, blank=True)
-    cover_image_path = models.ImageField("Cover image", upload_to=power_living_upload_image_path, null=True, blank=True)
-    document = models.FileField("File upload", upload_to='powerlivingfiles/pdfs/', null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
+    cover_image_path = models.ImageField(
+        "Cover image", upload_to=power_living_upload_image_path, null=True, blank=True
+    )
+    document = models.FileField(
+        "File upload",
+        upload_to="powerlivingfiles/pdfs/",
+        null=True,
+        blank=True,
+        validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
+    )
     created_at = models.DateField("Created at", auto_now_add=True)
 
     class Meta:
@@ -20,7 +28,7 @@ class MonthlyPowerLiving(models.Model):
         verbose_name_plural = "Monthly Power Living"
 
     def __unicode__(self):
-        return u'%s: /n %s ' % (self.title, self.created_at)
+        return "%s: /n %s " % (self.title, self.created_at)
 
     def __str__(self):
         return f"{self.title}"
@@ -28,19 +36,27 @@ class MonthlyPowerLiving(models.Model):
 
 class PowerLiving(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    alias = models.CharField(
+        "Alias", max_length=255, default="power-living", editable=False
+    )
     title = models.CharField("Power Living title", max_length=255)
-    sub_title = models.CharField("Home slider title", max_length=255)
-    Icon_image = models.ImageField("Image", upload_to=power_living_upload_image_path, null=True, blank=True)
+    short_description = models.CharField(
+        "Short Description", max_length=255, blank=False
+    )
+    full_description = models.TextField("Full Description", max_length=1024, blank=True)
+    cover_image_path = models.ImageField(
+        "Cover Image", upload_to=power_living_upload_image_path, null=True, blank=True
+    )
     monthly_power_living = models.ManyToManyField(to=MonthlyPowerLiving)
     created_at = models.DateField("Created at", auto_now_add=True)
 
     class Meta:
-        ordering = ("title", "sub_title", "created_at")
+        ordering = ("title", "created_at")
         verbose_name = "Power Living"
         verbose_name_plural = "Power Living"
 
     def __unicode__(self):
-        return u'%s: /n %s' % (self.title, self.created_at)
+        return "%s: /n %s" % (self.title, self.created_at)
 
     def __str__(self):
-        return f"{self.title} - {self.sub_title}"
+        return f"{self.title}"

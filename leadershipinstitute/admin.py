@@ -43,7 +43,6 @@ class ReadingAdmin(admin.ModelAdmin):
         "title",
         "document",
         "description",
-        "cover_image_path",
     )
     list_display = ("title", "description", "created_at")
     list_filter = ("title", "created_at")
@@ -116,7 +115,6 @@ class LeadershipInstituteAdmin(admin.ModelAdmin):
         "title",
         "short_description",
         "full_description",
-        "action_text",
         "cover_image_path",
         "categories",
     )
