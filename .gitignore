@@ -54,8 +54,6 @@ target
 /*.sqlite3
 /db.sqlite3
 
-**/migrations/**
-!**/migrations
-!**/migrations/__init__.py
+
 /static_cdn
 *.env
