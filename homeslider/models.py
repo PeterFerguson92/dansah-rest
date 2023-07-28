@@ -7,14 +7,8 @@ from .homeslidersuploadfiles import home_sliders_upload_image_path
 class HomeSlider(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField("Title", max_length=255)
-    image1 = models.ImageField(
-        "Image 1", upload_to=home_sliders_upload_image_path, null=True, blank=True
-    )
-    image2 = models.ImageField(
-        "Image 2", upload_to=home_sliders_upload_image_path, null=True, blank=True
-    )
-    image3 = models.ImageField(
-        "Image 3", upload_to=home_sliders_upload_image_path, null=True, blank=True
+    image = models.ImageField(
+        "Image", upload_to=home_sliders_upload_image_path, null=True, blank=True
     )
     created_at = models.DateField("Created at", auto_now_add=True)
 

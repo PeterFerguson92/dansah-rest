@@ -6,8 +6,8 @@ from .models import HomeSlider, Intro
 @admin.register(HomeSlider)
 class HomeSliderAdmin(admin.ModelAdmin):
     search_fields = ("title__startswith",)
-    fields = ("title", "image1", "image2", "image3")
-    list_display = ("title", "image1", "image2", "image3", "created_at")
+    fields = ("title", "image")
+    list_display = ("title", "image", "created_at")
     list_filter = ("title", "created_at")
 
 
