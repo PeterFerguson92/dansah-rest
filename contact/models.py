@@ -24,11 +24,12 @@ class Location(models.Model):
 
 class Contact(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField("Title", max_length=255)
-    locations = models.ManyToManyField(Location)
-    cover_image_path = models.ImageField(
-        "Cover Image", upload_to=contact_upload_image_path, null=True, blank=True
+    title = models.CharField("Title", max_length=255, default="Contact Us")
+    short_description = models.CharField(
+        "Short Description", max_length=255, blank=False
     )
+    full_description = models.TextField("Full Description", max_length=1024, blank=True)
+    locations = models.ManyToManyField(Location)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
     class Meta:

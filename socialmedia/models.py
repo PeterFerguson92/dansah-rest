@@ -8,9 +8,6 @@ from .socialmediauploadfiles import social_media_upload_image_path
 class SocialMedia(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField("Social media title", max_length=255)
-    logo_image_path = models.ImageField(
-        "Logo", upload_to=social_media_upload_image_path, null=True, blank=True
-    )
     link = models.CharField(max_length=255)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
@@ -26,11 +23,7 @@ class SocialMedia(models.Model):
 
 class Media(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField("Tile", max_length=255)
-    description = models.TextField("Description", max_length=1024)
-    cover_image_path = models.ImageField(
-        "Cover Image", upload_to=social_media_upload_image_path, null=True, blank=True
-    )
+    title = models.CharField("Title", max_length=255, default="Social Media Banner")
     social_media = models.ManyToManyField(to=SocialMedia)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 

@@ -43,7 +43,6 @@ class ReadingAdmin(admin.ModelAdmin):
         "title",
         "document",
         "description",
-        "cover_image_path",
     )
     list_display = ("title", "description", "created_at")
     list_filter = ("title", "created_at")

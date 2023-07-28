@@ -80,12 +80,6 @@ class Reading(models.Model):
         blank=True,
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
     )
-    cover_image_path = models.ImageField(
-        "Cover image",
-        upload_to=leadership_institute_course_upload_image_path,
-        null=True,
-        blank=True,
-    )
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
     class Meta:
