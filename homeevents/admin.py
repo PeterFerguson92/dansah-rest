@@ -7,7 +7,10 @@ from .models import Event, HomeEvent
 class HomeEventsAdmin(admin.ModelAdmin):
     search_fields = ("title__startswith",)
     filter_horizontal = ("events",)
-    fields = ("title", "events",)
+    fields = (
+        "title",
+        "events",
+    )
     list_display = ("title", "created_at")
     list_filter = ("title", "created_at")
 
@@ -25,5 +28,5 @@ class EventsAdmin(admin.ModelAdmin):
         "home_display",
         "cover_image_path",
     )
-    list_display = ("title","date","time","location", "created_at")
+    list_display = ("title", "date", "time", "location", "created_at")
     list_filter = ("title", "created_at")

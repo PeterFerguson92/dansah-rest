@@ -6,7 +6,7 @@ from .models import Profile, Role
 @admin.register(Role)
 class RoleAdmin(admin.ModelAdmin):
     search_fields = ("type__startswith",)
-    fields = ("type", "description")
+    fields = ("type", "description", "cover_image_path")
     list_display = (
         "type",
         "description",
@@ -23,6 +23,11 @@ class RoleAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     search_fields = ("title__startswith",)
     filter_horizontal = ("roles",)
-    fields = ("title", "text", "roles")
+    fields = (
+        "title",
+        "text",
+        "roles",
+        "cover_image_path",
+    )
     list_display = ("title", "text", "created_at")
     list_filter = ("title", "text", "created_at")

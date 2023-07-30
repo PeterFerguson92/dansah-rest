@@ -39,7 +39,7 @@ class PowerLiving(models.Model):
     alias = models.CharField(
         "Alias", max_length=255, default="power-living", editable=False
     )
-    title = models.CharField("Power Living title", max_length=255)
+    title = models.CharField("Title", max_length=255, default="Power Living")
     short_description = models.CharField(
         "Short Description", max_length=255, blank=False
     )

@@ -115,11 +115,11 @@ class Video(models.Model):
 
 class Material(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField("Name", max_length=255)
-    videos = models.ManyToManyField(Video)
-    readings = models.ManyToManyField(Reading)
-    assesments = models.ManyToManyField(Assesment)
-    assignments = models.ManyToManyField(Assignment)
+    name = models.CharField("Name", max_length=255, default="Course Material")
+    videos = models.ManyToManyField(Video, blank=True)
+    readings = models.ManyToManyField(Reading, blank=True)
+    assesments = models.ManyToManyField(Assesment, blank=True)
+    assignments = models.ManyToManyField(Assignment, blank=True)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
     class Meta:
@@ -171,6 +171,9 @@ class Course(models.Model):
 class Category(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField("Name", max_length=255)
+    description = models.TextField(
+        "Description", max_length=1024, default="", blank=False
+    )
     cover_image_path = models.ImageField(
         "Cover image",
         upload_to=leadership_institute_categories_upload_image_path,
@@ -195,8 +198,10 @@ class LeadershipInstitute(models.Model):
     alias = models.CharField(
         "Alias", max_length=255, default="leadership-institute", editable=False
     )
-    title = models.CharField("Title", max_length=255)
-    short_description = models.CharField("Short Description", max_length=255, blank=False)
+    title = models.CharField("Title", max_length=255, default="Leadership Institute")
+    short_description = models.CharField(
+        "Short Description", max_length=255, blank=False
+    )
     full_description = models.TextField("Full Description", max_length=1024, blank=True)
     categories = models.ManyToManyField(Category)
     cover_image_path = models.ImageField(

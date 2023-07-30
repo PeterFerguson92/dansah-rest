@@ -30,9 +30,10 @@ class Event(models.Model):
     def __str__(self):
         return f"{self.title}"
 
+
 class HomeEvent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField("Title", max_length=255)
+    title = models.CharField("Title", max_length=255, default="Home Events")
     events = models.ManyToManyField(to=Event)
     created_at = models.DateField("Created at", auto_now_add=True)
 

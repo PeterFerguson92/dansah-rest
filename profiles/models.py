@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from .profileuploadfiles import profile_upload_image_path
 
 
 class Role(models.Model):
@@ -26,6 +27,9 @@ class Profile(models.Model):
     title = models.CharField("Title", max_length=255, default="Profile")
     text = models.TextField("Text", max_length=1024)
     roles = models.ManyToManyField(Role)
+    cover_image_path = models.ImageField(
+        "Cover Image", upload_to=profile_upload_image_path, null=True, blank=True
+    )
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
     class Meta:

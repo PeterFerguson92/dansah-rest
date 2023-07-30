@@ -39,7 +39,7 @@ class PrayerConnect(models.Model):
     alias = models.CharField(
         "Alias", max_length=255, default="prayer-connect", editable=False
     )
-    title = models.CharField("Title", max_length=255)
+    title = models.CharField("Title", max_length=255, default="Prayer Connect")
     short_description = models.CharField(
         "Short Description", max_length=255, blank=False
     )

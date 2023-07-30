@@ -101,6 +101,7 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ("name__startswith",)
     fields = (
         "name",
+        "description",
         "cover_image_path",
     )
     list_display = ("name", "created_at")
