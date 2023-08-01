@@ -14,10 +14,13 @@ from pathlib import Path
 import environ
 
 env = environ.Env()
-environ.Env.read_env()
+# environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-USE_PRODUCTION = env("USE_PRODUCTION") == 'TRUE'
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, "qa.env"))
+print("USING " + env("ENVIROMENT") + " SETTINGS")
+IS_DEV = env("ENVIROMENT") == "DEV"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -29,14 +32,18 @@ with open(os.path.join(BASE_DIR, "secret_key.txt")) as f:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-print("USE_PRODUCTION")
-print(USE_PRODUCTION)
-if USE_PRODUCTION:
-    ALLOWED_HOSTS = ["https://dansah-rest-production.up.railway.app", 'dansah-rest-production.up.railway.app',]
-    CSRF_TRUSTED_ORIGINS=["https://dansah-rest-production.up.railway.app"]
+print("IS_DEV")
+print(IS_DEV)
+if IS_DEV:
+    print("cisis")
+    ALLOWED_HOSTS = ["localhost"]
 else:
-    ALLOWED_HOSTS=['localhost']
-    
+    ALLOWED_HOSTS = [
+        "https://dansah-rest-production.up.railway.app",
+        "dansah-rest-production.up.railway.app",
+    ]
+    CSRF_TRUSTED_ORIGINS = ["https://dansah-rest-production.up.railway.app"]
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -77,8 +84,14 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
 ]
 
-CORS_ORIGIN_WHITELIST = ("http://localhost:4200","https://dansah-rest-production.up.railway.app",)
-CORS_ALLOWED_ORIGINS = ["http://localhost:4200","https://dansah-rest-production.up.railway.app",]
+CORS_ORIGIN_WHITELIST = (
+    "http://localhost:4200",
+    "https://dansah-rest-production.up.railway.app",
+)
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+    "https://dansah-rest-production.up.railway.app",
+]
 CORS_ALLOW_ALL = False
 
 ROOT_URLCONF = "dansah.urls"
@@ -104,25 +117,25 @@ WSGI_APPLICATION = "dansah.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if USE_PRODUCTION:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env("PGDATABASE"),
-            'USER': env("PGUSER"),
-            'PASSWORD': env("PGPASSWORD"),
-            'HOST': env("PGHOST"),
-            'PORT': env("PGPORT"),
-        }
-    }
-else:
+if IS_DEV:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
-    
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("PGDATABASE"),
+            "USER": env("PGUSER"),
+            "PASSWORD": env("PGPASSWORD"),
+            "HOST": env("PGHOST"),
+            "PORT": env("PGPORT"),
+        }
+    }
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -177,11 +190,10 @@ else:
     # STATICFILES_DIRS = [
     #     os.path.join(BASE_DIR, "static"),
     # ]
-    STATIC_URL = '/static/'
+    STATIC_URL = "/static/"
     # Extra places for collectstatic to find static files.
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    STATICFILES_DIRS = (
-                        ('admin', os.path.join(BASE_DIR, 'static', 'admin')))
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    STATICFILES_DIRS = ("admin", os.path.join(BASE_DIR, "static", "admin"))
 
     MEDIA_URL = "/media/"
     # Default primary key field type
