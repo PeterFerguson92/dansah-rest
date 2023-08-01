@@ -38,11 +38,8 @@ if IS_DEV:
     print("cisis")
     ALLOWED_HOSTS = ["localhost"]
 else:
-    ALLOWED_HOSTS = [
-        "https://dansah-rest-production.up.railway.app",
-        "dansah-rest-production.up.railway.app",
-    ]
-    CSRF_TRUSTED_ORIGINS = ["https://dansah-rest-production.up.railway.app"]
+    ALLOWED_HOSTS = [env("ALLOWED_HOST")]
+    CSRF_TRUSTED_ORIGINS = [env("CSRF_TRUSTED_ORIGIN")]
 
 
 # Application definition
