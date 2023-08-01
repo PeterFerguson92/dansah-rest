@@ -32,10 +32,7 @@ with open(os.path.join(BASE_DIR, "secret_key.txt")) as f:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-print("IS_DEV")
-print(IS_DEV)
 if IS_DEV:
-    print("cisis")
     ALLOWED_HOSTS = ["localhost"]
 else:
     ALLOWED_HOSTS = [env("ALLOWED_HOST")]
