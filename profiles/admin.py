@@ -6,7 +6,7 @@ from .models import Profile, Role
 @admin.register(Role)
 class RoleAdmin(admin.ModelAdmin):
     search_fields = ("type__startswith",)
-    fields = ("type", "description", "cover_image_path")
+    fields = ("type", "description")
     list_display = (
         "type",
         "description",

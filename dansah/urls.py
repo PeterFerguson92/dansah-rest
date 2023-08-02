@@ -31,7 +31,6 @@ urlpatterns = [
     path("api/homeevents/", include("homeevents.urls")),
     path("api/profiles/", include("profiles.urls")),
     path("api/quoteoftheday/", include("quoteoftheday.urls")),
-    path("api/role/", include("role.urls")),
     path("api/powerliving/", include("powerliving.urls")),
     path("api/socialmedia/", include("socialmedia.urls")),
     path("api/prayerconnect/", include("prayerconnect.urls")),
