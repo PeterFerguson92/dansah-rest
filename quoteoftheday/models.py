@@ -5,7 +5,7 @@ from django.db import models
 
 class QuoteOfTheDay(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField("Title", max_length=255, default="Quote Of The Day")
+    title = models.CharField("Title", max_length=255, default="Quote Of The Day", editable=True)
     text = models.TextField("text", max_length=1024)
     source = models.CharField("Source", max_length=255)
     quote_date = models.DateField("Date")
