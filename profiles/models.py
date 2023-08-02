@@ -24,7 +24,7 @@ class Role(models.Model):
 
 class Profile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField("Title", max_length=255, default="Profile")
+    title = models.CharField("Title", max_length=255, default="Profile", editable=True)
     text = models.TextField("Text", max_length=1024)
     roles = models.ManyToManyField(Role)
     cover_image_path = models.ImageField(

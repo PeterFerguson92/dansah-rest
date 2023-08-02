@@ -6,7 +6,7 @@ from .homeslidersuploadfiles import home_sliders_upload_image_path
 
 class HomeSlider(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField("Title", max_length=255, default="Home Slider")
+    title = models.CharField("Title", max_length=255, default="Home Slider", editable=True)
     image = models.ImageField(
         "Image", upload_to=home_sliders_upload_image_path, null=True, blank=True
     )

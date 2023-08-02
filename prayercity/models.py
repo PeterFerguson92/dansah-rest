@@ -10,7 +10,7 @@ class PrayerCity(models.Model):
     alias = models.CharField(
         "Alias", max_length=255, default="prayer-city", editable=False
     )
-    title = models.CharField("Title", max_length=255, default='Prayer City')
+    title = models.CharField("Title", max_length=255, default='Prayer City', editable=True)
     short_description = models.CharField(
         "Short Description", max_length=255, blank=False
     )

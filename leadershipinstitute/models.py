@@ -115,7 +115,7 @@ class Video(models.Model):
 
 class Material(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField("Name", max_length=255, default="Course Material")
+    name = models.CharField("Name", max_length=255, default="Course Material", editable=True)
     videos = models.ManyToManyField(Video, blank=True)
     readings = models.ManyToManyField(Reading, blank=True)
     assesments = models.ManyToManyField(Assesment, blank=True)

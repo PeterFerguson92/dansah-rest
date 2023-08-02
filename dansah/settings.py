@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     "homeslider",
     "profiles",
     "quoteoftheday",
-    "role",
     "powerliving",
     "socialmedia",
     "prayerconnect",
