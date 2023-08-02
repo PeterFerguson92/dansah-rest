@@ -7,7 +7,7 @@ from .profileuploadfiles import profile_upload_image_path
 class Role(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type = models.CharField("Type", max_length=255)
-    description = models.CharField("Description", max_length=255)
+    description = models.TextField("Description", max_length=1024)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
     class Meta:
