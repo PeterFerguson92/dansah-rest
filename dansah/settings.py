@@ -18,7 +18,7 @@ env = environ.Env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Take environment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR, "qa.env"))
+environ.Env.read_env(os.path.join(BASE_DIR, "dev.env"))
 print("USING " + env("ENVIROMENT") + " SETTINGS")
 IS_DEV = env("ENVIROMENT") == "DEV"
 
@@ -35,7 +35,7 @@ DEBUG = True
 if IS_DEV:
     ALLOWED_HOSTS = ["localhost"]
 else:
-    ALLOWED_HOSTS = [env("ALLOWED_HOST")]
+    ALLOWED_HOSTS = [env("ALLOWED_HOST"), "localhost"]
     CSRF_TRUSTED_ORIGINS = [env("CSRF_TRUSTED_ORIGIN")]
 
 
@@ -163,49 +163,30 @@ USE_S3 = os.getenv("USE_S3") == "FALSE"
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-if USE_S3:
-    # aws settings
-    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-    AWS_DEFAULT_ACL = "public-read"
-    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-    # s3 static settings
-    AWS_LOCATION = "static"
-    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
-    STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-else:
-    # Static files (CSS, JavaScript, Images)
-    # https://docs.djangoproject.com/en/4.2/howto/static-files/
+STATIC_URL = "/static/"
+# Extra places for collectstatic to find static files.
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = ("admin", os.path.join(BASE_DIR, "static", "admin"))
 
-    # STATIC_URL = "static/"
-    # STATIC_ROOT = os.path.join(BASE_DIR, "static")
-    # STATICFILES_DIRS = [
-    #     os.path.join(BASE_DIR, "static"),
-    # ]
-    STATIC_URL = "/static/"
-    # Extra places for collectstatic to find static files.
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
-    STATICFILES_DIRS = ("admin", os.path.join(BASE_DIR, "static", "admin"))
+MEDIA_URL = "/media/"
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-    MEDIA_URL = "/media/"
-    # Default primary key field type
-    # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-    DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
 
-    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME")
+AWS_S3_SIGNATURE_NAME = ("s3v4",)
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERITY = True
+AWS_QUERYSTRING_AUTH = False
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-# # HTTPS settings
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# SECURE_SSL_REDIRECT = True
-
-# # HSTS settings
-# SECURE_HSTS_SECONDS = 3153600  # 1 year
-# SECURE_HSTS_PRELOAD = True
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
