@@ -9,6 +9,7 @@ from .models import (
     LeadershipInstitute,
     Reading,
     Video,
+    Student
 )
 
 
@@ -67,6 +68,10 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = "__all__"
 
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = "__all__"
 
 class LeadershipInstituteSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True, read_only=True)

@@ -8,6 +8,7 @@ from .models import (
     Assignment,
     Category,
     Material,
+    Student,
     LeadershipInstitute,
 )
 
@@ -81,9 +82,22 @@ class MaterialAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    search_fields = ("name__startswith",)
+    fields = (
+        "name",
+        "surname",
+        "email",
+    )
+    list_display = ("name", "surname", "email", "created_at")
+    list_filter = ("name", "surname", "email", "created_at")
+
+
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     search_fields = ("name__startswith",)
+    filter_horizontal = ("students",)
     fields = (
         "name",
         "level",
@@ -91,9 +105,11 @@ class CourseAdmin(admin.ModelAdmin):
         "full_description",
         "cover_image_path",
         "materials",
+        "students",
     )
     list_display = ("name", "level", "created_at")
     list_filter = ("name", "created_at")
+    
 
 
 @admin.register(Category)

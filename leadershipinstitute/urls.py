@@ -6,6 +6,7 @@ from .views import (
     CoursesByCategoryView,
     CategoryView,
     LeadershipInstituteView,
+    StudentView,
 )
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     path("courses/", CoursesView.as_view()),
     path("course/<uuid:pk>", CourseDetailView.as_view()),
     path("courses/category", CoursesByCategoryView.as_view()),
+    path("courses/student", StudentView.as_view()),
 ]
