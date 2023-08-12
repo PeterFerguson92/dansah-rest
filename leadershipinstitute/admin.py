@@ -1,3 +1,5 @@
+import csv
+from django.http import HttpResponse
 from django.contrib import admin
 
 from .models import (
@@ -11,6 +13,28 @@ from .models import (
     Student,
     LeadershipInstitute,
 )
+
+
+class ExportCsvMixin:
+
+    def export_student_as_csv(self, request, queryset):
+        qs = Course.objects.prefetch_related("students")
+        print(qs)
+
+        # Create the HttpResponse object with the appropriate CSV header.
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="export_file.csv"'
+
+        writer = csv.writer(response)
+
+        for rule in qs:
+            writer.writerow([rule.name])
+            for c in rule.students.all():
+                writer.writerow(["-", c.name, c.surname, c.email])
+
+        return response
+
+    export_as_csv.short_description = "Export Selected"
 
 
 @admin.register(Assignment)
@@ -95,7 +119,7 @@ class StudentAdmin(admin.ModelAdmin):
 
 
 @admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
+class CourseAdmin(ExportCsvMixin, admin.ModelAdmin):
     search_fields = ("name__startswith",)
     filter_horizontal = ("students",)
     fields = (
@@ -109,7 +133,7 @@ class CourseAdmin(admin.ModelAdmin):
     )
     list_display = ("name", "level", "created_at")
     list_filter = ("name", "created_at")
-    
+    actions = ["export_student_as_csv"]
 
 
 @admin.register(Category)
