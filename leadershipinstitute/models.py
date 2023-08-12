@@ -115,7 +115,9 @@ class Video(models.Model):
 
 class Material(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField("Name", max_length=255, default="Course Material", editable=True)
+    name = models.CharField(
+        "Name", max_length=255, default="Course Material", editable=True
+    )
     videos = models.ManyToManyField(Video, blank=True)
     readings = models.ManyToManyField(Reading, blank=True)
     assesments = models.ManyToManyField(Assesment, blank=True)
@@ -136,6 +138,27 @@ class Material(models.Model):
         return f"{self.name}"
 
 
+class Student(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField("Name", max_length=255)
+    surname = models.CharField("Surname", max_length=255)
+    email = models.EmailField("Email", max_length=255)
+    created_at = models.DateTimeField("Created at", auto_now_add=True)
+
+    class Meta:
+        ordering = (
+            "name",
+            "created_at",
+        )
+        verbose_name_plural = "Students"
+
+    def __unicode__(self):
+        return "%s: /n %s  %s" % (self.name, self.created_at)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class Course(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField("Name", max_length=255)
@@ -144,7 +167,7 @@ class Course(models.Model):
         "Short Description", max_length=255, default="", blank=False
     )
     full_description = models.TextField(
-        "Full Description", max_length=1024, default="", blank=False
+        "Full Description", max_length=1024, default="", blank=True
     )
     cover_image_path = models.ImageField(
         "Cover image",
@@ -152,6 +175,7 @@ class Course(models.Model):
         null=True,
         blank=True,
     )
+    students = models.ManyToManyField(Student, blank=True)
     materials = models.ForeignKey(
         "Material", on_delete=models.CASCADE, blank=True, null=True
     )
