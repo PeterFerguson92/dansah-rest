@@ -34,7 +34,7 @@ class ExportCsvMixin:
 
         return response
 
-    export_as_csv.short_description = "Export Selected"
+    export_student_as_csv.short_description = "Export Selected"
 
 
 @admin.register(Assignment)
