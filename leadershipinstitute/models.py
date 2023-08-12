@@ -167,7 +167,7 @@ class Course(models.Model):
         "Short Description", max_length=255, default="", blank=False
     )
     full_description = models.TextField(
-        "Full Description", max_length=1024, default="", blank=False
+        "Full Description", max_length=1024, default="", blank=True
     )
     cover_image_path = models.ImageField(
         "Cover image",
@@ -175,7 +175,7 @@ class Course(models.Model):
         null=True,
         blank=True,
     )
-    students = models.ManyToManyField(Student)
+    students = models.ManyToManyField(Student, blank=True)
     materials = models.ForeignKey(
         "Material", on_delete=models.CASCADE, blank=True, null=True
     )
