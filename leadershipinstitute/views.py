@@ -7,18 +7,24 @@ from .leadershipinstituteserializers import (
     LeadershipInstituteSerializer,
     StudentSerializer,
 )
-from .models import Course, Category, LeadershipInstitute
+from .models import Course, Category, LeadershipInstitute, Student
 
 
 class StudentView(generics.GenericAPIView):
     serializer_class = StudentSerializer
-    
+
     def get_course(self, pk):
         try:
             return Course.objects.get(pk=pk)
         except:
             return None
-        
+
+    def get_student(self, email):
+        try:
+            return Student.objects.filter(email=email)
+        except:
+            return None
+
     def post(self, request):
         if len(request.data) is 0:
             return Response(
@@ -29,17 +35,39 @@ class StudentView(generics.GenericAPIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
         try:
-            course_id = request.data['course_id']
+            student = self.get_student(request.data["email"])
+            print(student)
+            if student:
+                return Response(
+                    {
+                        "status": "fail",
+                        "message": f"Student with this email already registered",
+                    },
+                    status=status.HTTP_401_UNAUTHORIZED,
+                )
+            course_id = request.data["course_id"]
             course = self.get_course(pk=course_id)
             serializer = StudentSerializer(data=request.data, partial=True)
             if serializer.is_valid():
-                result = serializer.save() 
+                result = serializer.save()
                 course.students.add(result)
-                result.save()           
+                result.save()
                 return Response({"status": "success"}, status=status.HTTP_201_CREATED)
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {
+                    "status": "fail",
+                    "message": f"Student information not saved",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         except Exception:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {
+                    "status": "fail",
+                    "message": f"Student information not valid",
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
 
 class CoursesView(generics.GenericAPIView):
