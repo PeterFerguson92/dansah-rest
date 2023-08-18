@@ -9,7 +9,7 @@ from .homeministriesmaterialuploadfiles import (
 class MinistriesMaterial(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField("Title", max_length=255)
-    description = models.CharField("Description", max_length=1024)
+    description = models.TextField("Description", max_length=1024)
     cover_image_path = models.ImageField(
         "Cover image",
         upload_to=home_ministries_material_upload_image_path,
