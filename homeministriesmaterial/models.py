@@ -28,9 +28,10 @@ class MinistriesMaterial(models.Model):
     def __str__(self):
         return f"{self.title}"
 
+
 class HomeMinistriesMaterial(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField("Title", max_length=255)
+    title = models.CharField("Title", max_length=255, default="Ministries Material")
     materials = models.ManyToManyField(MinistriesMaterial)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 

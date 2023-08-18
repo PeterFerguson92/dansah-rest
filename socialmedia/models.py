@@ -4,10 +4,22 @@ from django.db import models
 
 from .socialmediauploadfiles import social_media_upload_image_path
 
+SOCIALS = (
+    ("FACEBOOK", "Facebook"),
+    ("INSTAGRAM", "Instagram"),
+    ("TWITTER", "Twitter"),
+    ("YOUTUBE", "Youtube"),
+    ("PODCAST", "Podcast"),
+)
+
 
 class SocialMedia(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField("Social media title", max_length=255)
+    title = models.CharField(
+        max_length=50,
+        choices=SOCIALS,
+    )
+
     link = models.CharField(max_length=255)
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
