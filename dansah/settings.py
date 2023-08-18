@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "leadershipinstitute",
     "contact",
     "home",
+    "donation",
     "whitenoise.runserver_nostatic",
 ]
 
