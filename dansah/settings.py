@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "contact",
     "home",
     "donation",
+    "homeministries",
     "whitenoise.runserver_nostatic",
 ]
 

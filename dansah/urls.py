@@ -39,6 +39,7 @@ urlpatterns = [
     path("api/contact/", include("contact.urls")),
     path("api/home/", include("home.urls")),
     path("api/donation/", include("donation.urls")),
+    path("api/homeministries/", include("homeministries.urls")),
 ]
 urlpatterns += static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
