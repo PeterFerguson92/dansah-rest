@@ -10,6 +10,7 @@ SOCIALS = (
     ("TWITTER", "Twitter"),
     ("YOUTUBE", "Youtube"),
     ("PODCAST", "Podcast"),
+    ("TELEGRAM", "Telegram"),
 )
 
 
