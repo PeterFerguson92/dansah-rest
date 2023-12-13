@@ -7,8 +7,8 @@ from .homeeventsuploadfiles import home_events_upload_image_path
 class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField("Title", max_length=255)
-    description_1 = models.TextField("Description 1", max_length=1024)
-    description_2 = models.TextField("Description 2", max_length=1024, blank=True)
+    description_1 = models.TextField("First Description", max_length=1024)
+    description_2 = models.TextField("Second Description", max_length=1024, blank=True)
     date = models.CharField("Date details", max_length=255)
     time = models.CharField("Time details ", max_length=255)
     location = models.CharField("Location details ", max_length=255)
