@@ -12,6 +12,8 @@ class Home(models.Model):
         null=True,
         blank=True,
     )
+    live_event_name = models.CharField("Live Event Name", default='default', max_length=255)
+    url = models.CharField("Video Id", default='default', max_length=255)
     footer_address = models.CharField("Footer Address", max_length=255)
     footer_phone = models.CharField("Footer Phone", max_length=255)
     footer_email = models.CharField("Footer email", max_length=255)
