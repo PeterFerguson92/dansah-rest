@@ -32,6 +32,10 @@ class PrayerConnectAdmin(admin.ModelAdmin):
         "full_description",
         "cover_image_path",
         "centers",
+        "gallery_image_path_1",
+        "gallery_image_path_2",
+        "gallery_image_path_3",
+        "gallery_image_path_4",
     )
     list_display = (
         "title",

@@ -15,6 +15,18 @@ class Ministries(models.Model):
         null=True,
         blank=True,
     )
+    gallery_image_path_1 = models.ImageField(
+        "Gallery image 1", upload_to=home_ministries_upload_image_path, null=True, blank=True
+    )
+    gallery_image_path_2 = models.ImageField(
+        "Gallery image 2", upload_to=home_ministries_upload_image_path, null=True, blank=True
+    )
+    gallery_image_path_3 = models.ImageField(
+        "Gallery image 3", upload_to=home_ministries_upload_image_path, null=True, blank=True
+    )
+    gallery_image_path_4 = models.ImageField(
+        "Gallery image 4", upload_to=home_ministries_upload_image_path, null=True, blank=True
+    )
     created_at = models.DateTimeField("Created at", auto_now_add=True)
 
     class Meta:

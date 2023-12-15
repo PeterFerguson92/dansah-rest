@@ -27,6 +27,10 @@ class EventsAdmin(admin.ModelAdmin):
         "location",
         "home_display",
         "cover_image_path",
+        "gallery_image_path_1",
+        "gallery_image_path_2",
+        "gallery_image_path_3",
+        "gallery_image_path_4",
     )
     list_display = ("title", "date", "time", "location", "created_at")
     list_filter = ("title", "created_at")
