@@ -7,6 +7,7 @@ from .models import Home
 class HomeAdmin(admin.ModelAdmin):
     fields = (
         "top_logo_image_path",
+        "url",
         "footer_address",
         "footer_phone",
         "footer_email",

@@ -15,6 +15,18 @@ class Event(models.Model):
     cover_image_path = models.ImageField(
         "Cover image", upload_to=home_events_upload_image_path, null=True, blank=True
     )
+    gallery_image_path_1 = models.ImageField(
+        "Gallery image 1", upload_to=home_events_upload_image_path, null=True, blank=True
+    )
+    gallery_image_path_2 = models.ImageField(
+        "Gallery image 2", upload_to=home_events_upload_image_path, null=True, blank=True
+    )
+    gallery_image_path_3 = models.ImageField(
+        "Gallery image 3", upload_to=home_events_upload_image_path, null=True, blank=True
+    )
+    gallery_image_path_4 = models.ImageField(
+        "Gallery image 4", upload_to=home_events_upload_image_path, null=True, blank=True
+    )
     home_display = models.BooleanField("Show In home", default=False)
 
     created_at = models.DateField("Created at", auto_now_add=True)

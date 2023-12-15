@@ -25,7 +25,16 @@ class HomeMinistriesAdmin(admin.ModelAdmin):
 @admin.register(Ministries)
 class MinistriesAdmin(admin.ModelAdmin):
     search_fields = ("name__startswith",)
-    fields = ("name", "slogan", "description", "cover_image_path")
+    fields = (
+        "name",
+        "slogan",
+        "description",
+        "cover_image_path",
+        "gallery_image_path_1",
+        "gallery_image_path_2",
+        "gallery_image_path_3",
+        "gallery_image_path_4",
+    )
     list_display = (
         "name",
         "slogan",
