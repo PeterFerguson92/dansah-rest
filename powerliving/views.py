@@ -12,12 +12,12 @@ class PowerLivingView(generics.GenericAPIView):
     def get(self, request):
         power_living = PowerLiving.objects.all()
         if not power_living:
-            return Response({"status": "No power living available"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"status": "No power living available"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
         serializer = self.serializer_class(power_living, many=True)
-        return Response({
-            "status": "success",
-            "result": serializer.data
-        })
+        return Response({"status": "success", "result": serializer.data})
 
 
 class PowerLivingDetailView(generics.GenericAPIView):
@@ -30,11 +30,13 @@ class PowerLivingDetailView(generics.GenericAPIView):
         except:
             return None
 
-    def get(self, request, pk):
-        power_living = self.get_ministries_material(pk=pk)
+    def get(self, pk):
+        power_living = self.get_power_living(pk=pk)
         if power_living is None:
-            return Response({"status": "fail", "message": f"Power living with Id: {pk} not found"},
-                            status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"status": "fail", "message": f"Power living with Id: {pk} not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
         serializer = self.serializer_class(power_living)
         return Response({"status": "success", "result": serializer.data})
@@ -47,29 +49,36 @@ class MonthlyPowerLivingView(generics.GenericAPIView):
     def get(self, request):
         monthly_power_living = MonthlyPowerLiving.objects.all()
         if not monthly_power_living:
-            return Response({"status": "No monthly power living available"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"status": "No monthly power living available"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
         serializer = self.serializer_class(monthly_power_living, many=True)
-        return Response({
-            "status": "success",
-            "monthly_power_living": serializer.data
-        })
+        return Response({"status": "success", "monthly_power_living": serializer.data})
 
 
 class MonthlyPowerLivingDetailView(generics.GenericAPIView):
     serializer_class = MonthlyPowerLivingSerializer
     queryset = MonthlyPowerLiving.objects.all()
 
-    def get_monthly_power_living(self, pk):
+    def get_detail(self, pk):
+        print("11111")
         try:
             return MonthlyPowerLiving.objects.get(pk=pk)
         except:
             return None
 
     def get(self, request, pk):
-        monthly_power_living = self.get_ministries_material(pk=pk)
-        if monthly_power_living is None:
-            return Response({"status": "fail", "message": f"Monthly power living  with Id: {pk} not found"},
-                            status=status.HTTP_404_NOT_FOUND)
+        print("22222222222")
+        powerLiving = self.get_detail(pk=pk)
+        if powerLiving is None:
+            return Response(
+                {
+                    "status": "fail",
+                    "message": f"Monthly power living with Id: {pk} not found",
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
-        serializer = self.serializer_class(monthly_power_living)
-        return Response({"status": "success", "monthly_power_living": serializer.data})
+        serializer = self.serializer_class(powerLiving)
+        return Response({"status": "success", "result": serializer.data})
