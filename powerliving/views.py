@@ -62,14 +62,12 @@ class MonthlyPowerLivingDetailView(generics.GenericAPIView):
     queryset = MonthlyPowerLiving.objects.all()
 
     def get_detail(self, pk):
-        print("11111")
         try:
             return MonthlyPowerLiving.objects.get(pk=pk)
         except:
             return None
 
     def get(self, request, pk):
-        print("22222222222")
         powerLiving = self.get_detail(pk=pk)
         if powerLiving is None:
             return Response(

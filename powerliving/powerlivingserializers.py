@@ -1,9 +1,17 @@
 from rest_framework import serializers
 
-from .models import PowerLiving, MonthlyPowerLiving
+from .models import Article, PowerLiving, MonthlyPowerLiving
+
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = "__all__"
 
 
 class MonthlyPowerLivingSerializer(serializers.ModelSerializer):
+    articles = ArticleSerializer(many=True, read_only=True)
+
     class Meta:
         model = MonthlyPowerLiving
         fields = "__all__"

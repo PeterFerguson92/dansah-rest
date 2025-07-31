@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import PowerLiving, MonthlyPowerLiving
+from .models import Article, PowerLiving, MonthlyPowerLiving
 
 
 @admin.register(PowerLiving)
@@ -30,12 +30,29 @@ class MonthlyPowerLivingAdmin(admin.ModelAdmin):
         "description",
         "cover_image_path",
         "document",
+        "articles",
     )
+    filter_horizontal = ("articles",)
     list_display = (
         "title",
         "description",
         "cover_image_path",
         "document",
+        "created_at",
+    )
+    list_filter = (
+        "title",
+        "created_at",
+    )
+
+
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    search_fields = ("title__startswith",)
+    fields = ("title", "content")
+    list_display = (
+        "title",
+        "content",
         "created_at",
     )
     list_filter = (

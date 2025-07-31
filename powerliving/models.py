@@ -5,6 +5,22 @@ from django.db import models
 
 from .powerlivinguploadfiles import power_living_upload_image_path
 
+class Article(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField("Title", max_length=255, editable=True)
+    content = models.TextField("Content", blank=True)
+    created_at = models.DateField("Created at", auto_now_add=True)
+
+    class Meta:
+        ordering = ("title", "created_at")
+        verbose_name = "Article"
+        verbose_name_plural = "Articles"
+
+    def __unicode__(self):
+        return "%s: /n %s" % (self.title, self.created_at)
+
+    def __str__(self):
+        return f"{self.title}"
 
 class MonthlyPowerLiving(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -20,6 +36,7 @@ class MonthlyPowerLiving(models.Model):
         blank=True,
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
     )
+    articles = models.ManyToManyField(to=Article)
     created_at = models.DateField("Created at", auto_now_add=True)
 
     class Meta:
