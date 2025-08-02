@@ -5,9 +5,13 @@ from django.db import models
 
 from .powerlivinguploadfiles import power_living_upload_image_path
 
+
 class Article(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField("Title", max_length=255, editable=True)
+    quotation = models.CharField(
+        "Quotation", max_length=255, editable=True, blank=True, null=True
+    )
     content = models.TextField("Content", blank=True)
     created_at = models.DateField("Created at", auto_now_add=True)
 
@@ -21,6 +25,7 @@ class Article(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
 
 class MonthlyPowerLiving(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -56,7 +61,9 @@ class PowerLiving(models.Model):
     alias = models.CharField(
         "Alias", max_length=255, default="power-living", editable=False
     )
-    title = models.CharField("Title", max_length=255, default="Power Living", editable=True)
+    title = models.CharField(
+        "Title", max_length=255, default="Power Living", editable=True
+    )
     short_description = models.CharField(
         "Short Description", max_length=255, blank=False
     )

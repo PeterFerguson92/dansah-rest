@@ -49,10 +49,14 @@ class MonthlyPowerLivingAdmin(admin.ModelAdmin):
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     search_fields = ("title__startswith",)
-    fields = ("title", "content")
+    fields = (
+        "title",
+        "quotation",
+        "content",
+    )
     list_display = (
         "title",
-        "content",
+        "quotation",
         "created_at",
     )
     list_filter = (
