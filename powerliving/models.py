@@ -8,6 +8,7 @@ from .powerlivinguploadfiles import power_living_upload_image_path
 
 class Article(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    date = models.DateField(blank=True, null=True)
     title = models.CharField("Title", max_length=255, editable=True)
     quotation = models.CharField(
         "Quotation", max_length=255, editable=True, blank=True, null=True
