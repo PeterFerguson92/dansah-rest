@@ -50,14 +50,14 @@ class MonthlyPowerLivingAdmin(admin.ModelAdmin):
 class ArticleAdmin(admin.ModelAdmin):
     search_fields = ("title__startswith",)
     fields = (
+        "cover_image_path",
         "date",
         "title",
         "quotation",
         "content",
         "confession",
         "references",
-        "prayer_point"
-        
+        "prayer_point",
     )
     list_display = (
         "date",
