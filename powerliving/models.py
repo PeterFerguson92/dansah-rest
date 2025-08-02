@@ -25,7 +25,7 @@ class Article(models.Model):
         return "%s: /n %s" % (self.title, self.created_at)
 
     def __str__(self):
-        return f"{self.title}"
+        return "%s: - %s " % (self.title, self.date)
 
 
 class MonthlyPowerLiving(models.Model):
