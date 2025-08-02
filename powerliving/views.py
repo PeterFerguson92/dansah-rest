@@ -1,8 +1,8 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 
-from .models import PowerLiving, MonthlyPowerLiving
-from .powerlivingserializers import PowerLivingSerializer, MonthlyPowerLivingSerializer
+from .models import Article, PowerLiving, MonthlyPowerLiving
+from .powerlivingserializers import ArticleSerializer, PowerLivingSerializer, MonthlyPowerLivingSerializer
 
 
 class PowerLivingView(generics.GenericAPIView):
@@ -79,4 +79,30 @@ class MonthlyPowerLivingDetailView(generics.GenericAPIView):
             )
 
         serializer = self.serializer_class(powerLiving)
+        return Response({"status": "success", "result": serializer.data})
+    
+    
+
+class ArticleDetailView(generics.GenericAPIView):
+    serializer_class = ArticleSerializer
+    queryset = Article.objects.all()
+
+    def get_detail(self, pk):
+        try:
+            return Article.objects.get(pk=pk)
+        except:
+            return None
+
+    def get(self, request, pk):
+        article = self.get_detail(pk=pk)
+        if article is None:
+            return Response(
+                {
+                    "status": "fail",
+                    "message": f"article with Id: {pk} not found",
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = self.serializer_class(article)
         return Response({"status": "success", "result": serializer.data})
