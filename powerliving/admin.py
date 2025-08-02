@@ -54,6 +54,10 @@ class ArticleAdmin(admin.ModelAdmin):
         "title",
         "quotation",
         "content",
+        "confession",
+        "references",
+        "prayer_point"
+        
     )
     list_display = (
         "date",

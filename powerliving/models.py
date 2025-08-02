@@ -14,6 +14,11 @@ class Article(models.Model):
         "Quotation", max_length=255, editable=True, blank=True, null=True
     )
     content = models.TextField("Content", blank=True)
+    confession = models.TextField("Confession", blank=True)
+    references = models.CharField(
+        "Scripture References", max_length=255, editable=True, blank=True, null=True
+    )
+    prayer_point = models.TextField("Prayer Points", blank=True)
     created_at = models.DateField("Created at", auto_now_add=True)
 
     class Meta:
