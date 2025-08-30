@@ -50,7 +50,7 @@ class MonthlyPowerLiving(models.Model):
         blank=True,
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
     )
-    articles = models.ManyToManyField(to=Article)
+    articles = models.ManyToManyField(to=Article, blank=True)
     created_at = models.DateField("Created at", auto_now_add=True)
 
     class Meta:
