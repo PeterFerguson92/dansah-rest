@@ -5,7 +5,6 @@ from django.db import models
 
 from .powerlivinguploadfiles import power_living_upload_image_path
 
-
 class Article(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     cover_image_path = models.ImageField(
@@ -34,11 +33,22 @@ class Article(models.Model):
 
     def __str__(self):
         return "%s: - %s " % (self.title, self.date)
+    
+     # ---- Derived month helpers (auto-linked to `date`) ----
+    @property
+    def month(self):
+        """Numeric month (1–12) derived from `date`, or None."""
+        return self.date.month if self.date else None
+
+    @property
+    def month_name(self):
+        """Month name (e.g., 'January') derived from `date`, or None."""
+        return self.date.strftime("%B") if self.date else None
 
 
 class MonthlyPowerLiving(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField("Monthly Power Living tile", max_length=255)
+    title = models.CharField("Monthly Power Living title", max_length=255)
     description = models.TextField("Description", max_length=1024, blank=True)
     cover_image_path = models.ImageField(
         "Cover image", upload_to=power_living_upload_image_path, null=True, blank=True
